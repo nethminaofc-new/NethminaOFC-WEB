@@ -1,17 +1,17 @@
 import { GoogleGenAI } from "@google/genai";
 
 // Initialize Gemini
-// NOTE: process.env.API_KEY is handled by the build environment. 
+// NOTE: process.env.API_KEY || 'FAKE_API_KEY_FOR_DEVELOPMENT' is handled by the build environment. 
 // We create the client only when needed to ensure we have the key if it's set dynamically.
 
 export const generateSocialTips = async (platform: string, goal: string): Promise<string> => {
-  if (!process.env.API_KEY) {
+  if (!process.env.API_KEY || 'FAKE_API_KEY_FOR_DEVELOPMENT') {
     console.warn("API Key not found in environment variables.");
     return "AI features are currently unavailable. Please contact support.";
   }
 
   try {
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || 'FAKE_API_KEY_FOR_DEVELOPMENT' });
     
     // Using a lightweight model for quick tips
     const modelId = 'gemini-3-flash-preview'; 
